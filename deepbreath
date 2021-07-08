@@ -1,0 +1,71 @@
+package com.example.meditationapp;
+
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DeepBreath extends AppCompatActivity {
+    Button button;
+    VideoView videoView;
+    MediaController mediaController;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.deepbreath);
+
+        button = (Button) findViewById(R.id.b );
+        videoView = (VideoView) findViewById(R.id.videoView);
+
+        mediaController = new MediaController(this);
+
+    button.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String videoPath = "android.resource://com.example.meditationapp/"+R.raw.deepbreath;
+
+            Uri uri = Uri.parse(videoPath);
+            videoView.setVideoURI(uri);
+            videoView.setMediaController(mediaController);
+            mediaController.setAnchorView(videoView);
+            videoView.start();
+        }
+    });
+
+    }
+}
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="400sp"
+            android:layout_margin="20sp"
+            android:layout_marginTop="20sp" />
+
+        <Button
+            android:id="@+id/b"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Play"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="40sp"
+            android:layout_marginRight="10sp" />
+
+    </LinearLayout>
+</ScrollView>
